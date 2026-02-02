@@ -1,0 +1,51 @@
+# New API Render 部署配置
+# 文档: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: new-api-service
+    runtime: docker
+    repo: https://github.com/Calcium-Ion/new-api.git
+    branch: main
+    plan: free
+    envVars:
+      # 数据库配置 - 使用 Supabase PostgreSQL
+      - key: SQL_DSN
+        sync: false  # 需要手动设置
+      
+      # 数据库类型
+      - key: SQL_TYPE
+        value: postgres
+      
+      # 端口
+      - key: PORT
+        value: 3000
+      
+      # 会话密钥（自动生成）
+      - key: SESSION_SECRET
+        generateValue: true
+      
+      # 是否关闭注册（建议生产环境关闭）
+      - key: DISABLE_REGISTER
+        value: "false"
+      
+      # 日志级别
+      - key: LOG_LEVEL
+        value: info
+      
+      # 是否启用频率限制
+      - key: ENABLE_FREQUENCY_LIMIT
+        value: "true"
+      
+      # 是否启用数据监控
+      - key: ENABLE_DATA_MONITOR
+        value: "true"
+      
+      # 时区
+      - key: TZ
+        value: Asia/Shanghai
+    
+    healthCheckPath: /api/status
+    
+    # 自动部署
+    autoDeploy: true
