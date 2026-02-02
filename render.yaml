@@ -5,7 +5,7 @@ services:
   - type: web
     name: new-api-service
     runtime: docker
-    repo: https://github.com/MOFANCITY/new-api
+    repo: https://github.com/Calcium-Ion/new-api
     branch: main
     plan: free
     envVars:
