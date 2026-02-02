@@ -3,7 +3,7 @@
 
 services:
   - type: web
-    name: new-api-service
+    name: blessing-ai-new-api
     runtime: docker
     repo: https://github.com/MOFANCITY/new-api.git
     branch: main
