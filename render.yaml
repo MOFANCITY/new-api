@@ -2,12 +2,6 @@
 # 文档: https://render.com/docs/blueprint-spec
 
 services:
-  # Redis 缓存服务
-  - type: redis
-    name: blessing-ai-redis
-    plan: free
-    ipAllowList: []
-
   # Web 服务
   - type: web
     name: blessing-ai-new-api
@@ -24,12 +18,9 @@ services:
       - key: SQL_TYPE
         value: postgres
 
-      # Redis 连接字符串（自动从 Redis 服务获取）
+      # Redis 连接字符串（需手动设置你自己的 Redis）
       - key: REDIS_CONN_STRING
-        fromService:
-          type: redis
-          name: blessing-ai-redis
-          property: connectionString
+        sync: false
 
       # 端口
       - key: PORT
@@ -60,10 +51,6 @@ services:
         value: Asia/Shanghai
 
     healthCheckPath: /api/status
-
-    # 依赖 Redis 服务
-    dependsOn:
-      - blessing-ai-redis
 
     # 自动部署
     autoDeploy: true
